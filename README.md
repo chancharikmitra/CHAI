@@ -6,6 +6,10 @@
 **Official Codebase for CVPR 2026 Highlight Paper:**
 *"Building a Precise Video Language with Human–AI Oversight"*
 
+**Note: More content will be added to the repo soon! Stay tuned.**
+
+
+
 <!-- TODO: Add badges -->
 <!-- [![Paper](https://img.shields.io/badge/arXiv-XXXX.XXXXX-b31b1b.svg)](https://arxiv.org/abs/XXXX.XXXXX) -->
 <!-- [![Project Page](https://img.shields.io/badge/Project-Page-blue)](https://TODO-project-url.github.io) -->
@@ -89,6 +93,21 @@ If you find this work useful, please cite:
   year      = {2026}
 }
 ```
+
+---
+## 📢 Collaborations & Contact
+
+We are actively advancing CHAI with larger-scale datasets and stronger video
+understanding models. We welcome collaborations and funding opportunities with
+researchers and practitioners working on video understanding, captioning, and
+multimodal agents for professional-level video content.
+
+If you're interested in accessing improved data or models, please reach out:
+
+- Zhiqiu Lin — [zhiqiulin98@gmail.com](mailto:zhiqiulin98@gmail.com)
+- Chancharik Mitra — [cmitra@andrew.cmu.edu](mailto:cmitra@andrew.cmu.edu)
+
+Or [open a GitHub Issue](../../issues).
 
 ---
 
