@@ -20,7 +20,7 @@
 [Isaac Li](https://www.linkedin.com/in/isaac-li-bb381b284/)¹,
 Yuhan Huang¹,
 [Yu Tong Tiffany Ling](https://www.yttldesign.com/)¹,
-[Hewei Wang](https://github.com/WangHewei16)³,
+[Hewei Wang](https://github.com/WangHewei16)¹,
 Irene Pi¹,
 Shihang Zhu¹,
 Ryan Rao¹,
@@ -31,7 +31,7 @@ Yili Han¹,
 [Yilun Du](https://yilundu.github.io/)²,
 [Deva Ramanan](https://www.cs.cmu.edu/~deva/)¹
 
-¹Carnegie Mellon University &nbsp; ²Harvard University &nbsp; ³Apple
+¹Carnegie Mellon University &nbsp; ²Harvard University
 
 ---
 
