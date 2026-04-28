@@ -6,13 +6,15 @@
 **Official Codebase for CVPR 2026 Highlight Paper:**
 *"Building a Precise Video Language with Human–AI Oversight"*
 
-**Note: More content will be added to the repo soon (model, videos, etc.)! Stay tuned.**
+<p align="center">
+  <a href="https://arxiv.org/abs/2604.21718"><img src="https://img.shields.io/badge/arXiv-2604.21718-b31b1b.svg" alt="Paper"></a>
+  <a href="https://linzhiqiu.github.io/papers/chai/"><img src="https://img.shields.io/badge/Project-Page-blue" alt="Project Page"></a>
+  <a href="https://huggingface.co/datasets/chancharikm/CHAI_testset"><img src="https://img.shields.io/badge/🤗_Dataset-CHAI_Testset-FFD21E" alt="Dataset"></a>
+  <a href="https://huggingface.co/chancharikm/CHAI_SFT_model_8b"><img src="https://img.shields.io/badge/🤗_Model-CHAI_SFT_8B-FFD21E" alt="Model"></a>
+  <a href="https://huggingface.co/papers/2604.21718"><img src="https://img.shields.io/badge/🤗_Paper-Daily_Papers-FFD21E" alt="HF Paper"></a>
+</p>
 
-
-
-<!-- TODO: Add badges -->
-<!-- [![Paper](https://img.shields.io/badge/arXiv-XXXX.XXXXX-b31b1b.svg)](https://arxiv.org/abs/XXXX.XXXXX) -->
-<!-- [![Project Page](https://img.shields.io/badge/Project-Page-blue)](https://TODO-project-url.github.io) -->
+> **🚧 More coming soon!** We are actively releasing evaluation code, additional models, and videos. Stay tuned.
 
 [Zhiqiu Lin](https://linzhiqiu.github.io/)¹,
 [Chancharik Mitra](https://chancharikmitra.github.io/)¹,
