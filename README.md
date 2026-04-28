@@ -1,5 +1,3 @@
-# CHAI
-
 <p align="center">
   <img src="assets/banner.png" alt="CHAI Banner" width="100%">
 </p>
@@ -40,6 +38,7 @@ Yili Han¹,
 
 ¹Carnegie Mellon University &nbsp; ²Harvard University
 
+# CHAI (Critique-Based Human-AI Oversight)
 ---
 
 ## Overview
