@@ -1,7 +1,12 @@
 # CHAI
 
-<!-- TODO: Add banner image -->
-<!-- ![CHAI Banner](assets/banner.png) -->
+<p align="center">
+  <img src="assets/banner.png" alt="CHAI Banner" width="100%">
+</p>
+
+<p align="center">
+  <img src="assets/logo.png" alt="CHAI Logo" width="700">
+</p>
 
 **Official Codebase for CVPR 2026 Highlight Paper:**
 *"Building a Precise Video Language with Human–AI Oversight"*
@@ -50,7 +55,17 @@ We release open datasets, benchmarks, and training recipes built on a structured
 
 ## Evaluation Data
 
-All evaluation files live under `eval_data/`. The raw test split and three task-specific reformatted versions are provided.
+All evaluation files live under `eval_data/`. The raw test split and three task-specific reformatted versions are provided. The corresponding videos and copies of all test split files are hosted on HuggingFace at [chancharikm/CHAI_testset](https://huggingface.co/datasets/chancharikm/CHAI_testset).
+
+To download the dataset:
+
+```bash
+# Install the HuggingFace CLI (if not already installed)
+pip install huggingface_hub
+
+# Download the full dataset (includes videos + evaluation JSONs)
+hf download datasets/chancharikm/CHAI_testset --local-dir ./CHAI_testset
+```
 
 ### `test_split.json`
 The raw evaluation data. Each entry contains a video path, the model-generated **pre-caption**, a human-written **critique**, the revised **final caption** (post-caption), a **pre-caption score** (1–5), the **caption type** (e.g., Subject, Scene, Motion, Spatial, Camera), and associated metadata. This file serves as the source from which all task-specific evaluation sets below are derived.
