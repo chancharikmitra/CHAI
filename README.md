@@ -6,7 +6,7 @@
 **Official Codebase for CVPR 2026 Highlight Paper:**
 *"Building a Precise Video Language with Human–AI Oversight"*
 
-**Note: More content will be added to the repo soon! Stay tuned.**
+**Note: More content will be added to the repo soon (model, videos, etc.)! Stay tuned.**
 
 
 
