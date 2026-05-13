@@ -11,6 +11,7 @@ from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 from tqdm import tqdm
+import os
 
 # Import the existing API
 from eval_code.video_caption_api import load_api_with_standard_constants, VideoCaptionAPI
@@ -136,6 +137,7 @@ def generate_batch(
         try:
             video_id = sample.get("video_id", "")
             video_path = str(Path(video_dir) / video_id)
+            print(f"DEBUG: cwd={os.getcwd()}, video_path={video_path}, exists={os.path.exists(video_path)}")
             caption_type = sample.get("caption_type", "camera")
             
             # Get format info
@@ -440,7 +442,7 @@ def main():
     
     # API configuration
     parser.add_argument('--task_instructions', type=str, 
-                       default='data/task_instructions.json',
+                       default='eval_code/task_instructions.json',
                        help='Path to task instructions JSON')
     
     # Utility

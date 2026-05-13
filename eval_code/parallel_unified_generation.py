@@ -233,7 +233,7 @@ def launch_worker(worker_id: int, gpu_id: int, chunk_file: str,
     
     # Build command
     cmd = [
-        sys.executable, "-u", "-m", "eval_code.unified_generation.py",
+        sys.executable, "-u", "-m", "eval_code.unified_generation",
         "--data_file", chunk_file,
         "--video_dir", args.video_dir,
         "--instruction_style", args.instruction_style,
@@ -290,7 +290,6 @@ def launch_worker(worker_id: int, gpu_id: int, chunk_file: str,
         stdout=log_handle,
         stderr=subprocess.STDOUT,
         env=env,
-        cwd=str(Path(__file__).parent)
     )
     
     # Get sample count

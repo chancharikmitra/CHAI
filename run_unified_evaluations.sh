@@ -10,11 +10,11 @@ set -e  # Exit on error
 # ============================================================================
 
 # Sample limit
-SAMPLE_SIZE=50
+SAMPLE_SIZE=5000
 
 # GPU configuration
 GPUS="0,1,2,3,4,5,6,7"
-WORKERS_PER_GPU=1
+WORKERS_PER_GPU=2
 
 GENERATION_TEMPERATURE=0.0
 SCORING_TEMPERATURE=1.0
@@ -33,7 +33,8 @@ mkdir -p "$TMPDIR"
 # Model configurations
 # Format: "base_model" for base only, or "base_model;checkpoint" for finetuned
 MODELS=(
-    "qwen3-vl-8b;chancharikm/all_sft_formats_balanced_20260222_ep3_lr3e5_qwen3-vl-8b"
+    "qwen3-vl-8b"
+    "qwen3-vl-8b;chancharikm/CHAI_SFT_model_8b"
 )
 
 # Scoring formats (use --mode score)

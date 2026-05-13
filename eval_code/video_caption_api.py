@@ -1203,7 +1203,7 @@ class VideoCaptionAPI:
 # =============================================================================
 
 def load_api_from_experiment(experiment_config: Dict[str, Any],
-                             task_instructions_file: str = "data/task_instructions.json",
+                             task_instructions_file: str = "eval_code/task_instructions.json",
                              **model_kwargs) -> VideoCaptionAPI:
     """
     Create API instance from an experiment configuration.
@@ -1238,7 +1238,7 @@ def load_api_from_experiment(experiment_config: Dict[str, Any],
     )
 
 
-def load_api_with_standard_constants(task_instructions_file: str = "data/task_instructions.json",
+def load_api_with_standard_constants(task_instructions_file: str = "eval_code/task_instructions.json",
                                      **model_kwargs) -> VideoCaptionAPI:
     """
     Create API instance with standard constants (most common use case).
@@ -1291,7 +1291,7 @@ def load_api_with_standard_constants(task_instructions_file: str = "data/task_in
 if __name__ == "__main__":
     # Example: Initialize API with standard constants (no model for prompt-only mode)
     api = load_api_with_standard_constants(
-        task_instructions_file="data/task_instructions.json"
+        task_instructions_file="eval_code/task_instructions.json"
     )
     
     # Print compatible formats with scoring info
@@ -1335,7 +1335,7 @@ if __name__ == "__main__":
     
     # Self-critique first prompt (scorable after marker)
     api_with_override = load_api_with_standard_constants(
-        task_instructions_file="data/task_instructions.json"
+        task_instructions_file="eval_code/task_instructions.json"
     )
     prompt = api_with_override.format_prompt(
         format_name="caption_yes_or_no_with_self_critique_first_simple",

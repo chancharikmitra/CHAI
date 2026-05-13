@@ -126,7 +126,7 @@ Formatted for the **reward modeling** (binary alignment scoring) task. Given a v
 
 ## Running Evaluations
 
-The evaluation pipeline supports three tasks: **caption generation**, **critique generation**, and **reward modeling** (caption yes/no scoring). A single bash script orchestrates generation and evaluation across model checkpoints.
+The evaluation pipeline supports three tasks: **caption generation**, **critique generation**, and **reward modeling** (caption yes/no scoring). A single bash script orchestrates generation and evaluation across model checkpoints. The script also enables parallel workers per GPU for faster inference.
 
 ### Quick Start
 

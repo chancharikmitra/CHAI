@@ -304,7 +304,7 @@ def launch_eval_worker(worker_id: int, input_file: str, output_file: str,
     """Launch evaluation worker process."""
     
     cmd = [
-        sys.executable, "-u", "-m", "eval_code.unified_eval.py",
+        sys.executable, "-u", "-m", "eval_code.unified_eval",
         "--results_file", input_file,
         "--output_file", output_file,
     ]
