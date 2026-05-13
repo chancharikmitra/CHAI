@@ -1,0 +1,17 @@
+# Videos (downloaded from HuggingFace)
+eval_data/captioning_videos/
+
+# Evaluation outputs and logs
+evaluation_outputs/
+logs/
+
+# Temp files
+.tmp_generation/
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+
+# Environment
+.env

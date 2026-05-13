@@ -16,8 +16,8 @@
   <a href="https://huggingface.co/chancharikm/CHAI_SFT_model_8b"><img src="https://img.shields.io/badge/🤗_Model-CHAI_SFT_8B-FFD21E" alt="Model"></a>
   <a href="https://huggingface.co/papers/2604.21718"><img src="https://img.shields.io/badge/🤗_Paper-Daily_Papers-FFD21E" alt="HF Paper"></a>
 </p>
-
-> **🚧 More coming soon!** We are actively releasing evaluation code, additional models, and videos. Stay tuned.
+<!-- 
+> **🚧 More coming soon!** We are actively releasing evaluation code, additional models, and videos. Stay tuned. -->
 
 [Zhiqiu Lin](https://linzhiqiu.github.io/)¹,
 [Chancharik Mitra](https://chancharikmitra.github.io/)¹,
@@ -38,6 +38,9 @@ Yili Han¹,
 
 ¹Carnegie Mellon University &nbsp; ²Harvard University
 
+### Updates
+- **2026-05-13**: Released evaluation code, updated test set, and published the [CHAI SFT 8B model](https://huggingface.co/chancharikm/CHAI_SFT_model_8b).
+
 # CHAI (Critique-Based Human-AI Oversight)
 ---
 
@@ -52,19 +55,60 @@ We release open datasets, benchmarks, and training recipes built on a structured
 
 ---
 
+## Getting Started
+
+### Prerequisites
+
+- Python 3.10+
+- Conda (recommended)
+- GPU(s) for model inference (tested on NVIDIA A6000)
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/TODO/CHAI.git
+cd CHAI
+
+# Create and activate conda environment
+conda create -n chai python=3.10 -y
+conda activate chai
+
+# Install conda dependencies
+conda install -c conda-forge ffmpeg=6.1.2 -y
+
+# Install the package
+pip install --no-build-isolation -e .
+```
+
+> **Note:** The `--no-build-isolation` flag is required because the `t2v_metrics` dependency uses a legacy `setup.py` without explicit `setuptools` declarations.
+
+### Environment Variables (Optional)
+
+If you want to use the LLM judge for generation evaluation, create a `.env` file in the project root:
+
+```
+OPENAI_API_KEY=your-openai-key
+```
+
+This is not required for the default evaluation pipeline, which uses BLEU-4 and ROUGE-L.
+
+### Download Evaluation Data and Videos
+
+The evaluation data and videos are hosted on HuggingFace. See [Evaluation Data](#evaluation-data) below for details on what each file contains.
+
+```bash
+# Download the full dataset (videos + evaluation JSONs)
+hf download chancharikm/CHAI_testset --repo-type dataset --local-dir ./eval_data
+```
+
+This populates `eval_data/` with the test split, task-specific evaluation files, and all corresponding videos.
+
+---
+
 ## Evaluation Data
 
 All evaluation files live under `eval_data/`. The raw test split and three task-specific reformatted versions are provided. The corresponding videos and copies of all test split files are hosted on HuggingFace at [chancharikm/CHAI_testset](https://huggingface.co/datasets/chancharikm/CHAI_testset).
-
-To download the dataset:
-
-```bash
-# Install the HuggingFace CLI (if not already installed)
-pip install huggingface_hub
-
-# Download the full dataset (includes videos + evaluation JSONs)
-hf download datasets/chancharikm/CHAI_testset --local-dir ./CHAI_testset
-```
 
 ### `test_split.json`
 The raw evaluation data. Each entry contains a video path, the model-generated **pre-caption**, a human-written **critique**, the revised **final caption** (post-caption), a **pre-caption score** (1–5), the **caption type** (e.g., Subject, Scene, Motion, Spatial, Camera), and associated metadata. This file serves as the source from which all task-specific evaluation sets below are derived.
@@ -80,20 +124,93 @@ Formatted for the **reward modeling** (binary alignment scoring) task. Given a v
 
 ---
 
-<!-- ## Getting Started -->
+## Running Evaluations
 
-<!-- TODO: Installation, environment setup, data download instructions -->
+The evaluation pipeline supports three tasks: **caption generation**, **critique generation**, and **reward modeling** (caption yes/no scoring). A single bash script orchestrates generation and evaluation across model checkpoints.
 
-<!-- ```bash -->
-<!-- # Clone the repository -->
-<!-- git clone https://github.com/TODO/CHAI.git -->
-<!-- cd CHAI -->
+### Quick Start
 
-<!-- # Install dependencies -->
-<!-- pip install -e . -->
-<!-- ``` -->
+```bash
+# Run the full pipeline with default settings
+bash run_unified_evaluations.sh
+```
 
-<!-- TODO: Add usage examples / quickstart -->
+### Configuration
+
+Edit the top of `run_unified_evaluations.sh` to configure your run:
+
+```bash
+# GPU setup
+GPUS="0,1,2,3,4,5,6,7"
+WORKERS_PER_GPU=2
+
+# Data
+DATA_FILE="eval_data/test_split.json"
+VIDEO_DIR="eval_data/captioning_videos"
+
+# Models to evaluate (base or base;checkpoint)
+MODELS=(
+    "qwen3-vl-8b"                                          # base model
+    "qwen3-vl-8b;chancharikm/CHAI_SFT_model_8b"            # fine-tuned
+)
+
+# Scoring formats (sequential evaluation via unified_eval.py)
+SCORING_FORMATS=(
+    "caption_yes_or_no"
+)
+
+# Generation formats (parallel evaluation)
+GENERATION_FORMATS=(
+    "caption_generation"
+    "critique_generation"
+)
+```
+
+### Pipeline Steps
+
+For each model, the pipeline runs:
+
+1. **Scoring generation** — computes VQA scores (P(Yes) probability) for each caption using `caption_yes_or_no` format
+2. **Scoring evaluation** — calculates pairwise accuracy from the generated scores
+3. **Caption/critique generation** — produces captions and critiques for test set videos
+4. **Generation evaluation** — evaluates outputs against ground truth using BLEU-4 and ROUGE-L by default, with an optional LLM judge as an alternative (requires `OPENAI_API_KEY` in `.env` and `USE_LLM_JUDGE="true"` in the script)
+
+### Output Structure
+
+```
+evaluation_outputs/
+├── inference/
+│   ├── scoring_<model>_<timestamp>.json
+│   └── generation_<model>_<timestamp>.json
+└── evaluation/
+    ├── scoring_eval_<model>_<timestamp>.json
+    └── generation_eval_<model>_<timestamp>.json
+```
+
+### Project Structure
+
+```
+CHAI/
+├── assets/                          # Banner, logo
+├── eval_code/                       # Evaluation modules
+│   ├── __init__.py
+│   ├── constants.py                 # Task constants and format definitions
+│   ├── formats.py                   # Format conversion utilities
+│   ├── parallel_unified_eval.py     # Multi-worker evaluation
+│   ├── parallel_unified_generation.py  # Multi-GPU generation
+│   ├── unified_eval.py              # Single-process evaluation
+│   ├── unified_generation.py        # Single-process generation
+│   └── video_caption_api.py         # Video captioning API
+├── eval_data/                       # Evaluation data and videos
+│   ├── test_split.json
+│   ├── eval_caption_generation_test.json
+│   ├── eval_critique_generation_test.json
+│   ├── eval_caption_yes_or_no_test.json
+│   └── captioning_videos/
+├── pyproject.toml
+├── run_unified_evaluations.sh       # Main evaluation entry point
+└── README.md
+```
 
 ---
 
