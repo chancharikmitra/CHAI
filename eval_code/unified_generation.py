@@ -137,7 +137,6 @@ def generate_batch(
         try:
             video_id = sample.get("video_id", "")
             video_path = str(Path(video_dir) / video_id)
-            print(f"DEBUG: cwd={os.getcwd()}, video_path={video_path}, exists={os.path.exists(video_path)}")
             caption_type = sample.get("caption_type", "camera")
             
             # Get format info
