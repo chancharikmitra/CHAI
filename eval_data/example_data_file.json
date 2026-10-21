@@ -1,0 +1,67 @@
+[
+  {
+    "video_id": "4PcpGxihPac.2.4.mp4",
+    "caption_type": "subject",
+    "pre_caption": "A middle-aged, light-skinned man with a full, dark beard and mustache is shown in a close-up. His face is covered in what appears to be red blood, with cuts and abrasions visible on his forehead and cheeks. His dark hair is unkempt. He stares forward with wide, dark eyes and an intense expression, his mouth slightly open. He wears a light-colored, worn-looking garment.",
+    "pre_caption_score": 5,
+    "critique": null,
+    "final_caption": "A middle-aged, light-skinned man with a full, dark beard and mustache is shown in a close-up. His face is covered in what appears to be red blood, with cuts and abrasions visible on his forehead and cheeks. His dark hair is unkempt. He stares forward with wide, dark eyes and an intense expression, his mouth slightly open. He wears a light-colored, worn-looking garment.",
+    "insertion_error_critique": "The caption should mention that the man is wearing glasses, as this is an important visual attribute that helps to identify him.",
+    "replacement_error_critique": "",
+    "worst_caption": "A young, dark-skinned woman with straight, shoulder-length blonde hair is shown in a close-up. She wears large, round glasses and a bright blue scarf over a neatly pressed white blouse. Her face is clean and unmarked, and she has a calm, neutral expression with her lips closed. She looks slightly to the left, and her hands are visible as she adjusts her glasses.",
+    "workflow_type": "perfect_precaption",
+    "annotator_negative_workflow_type": null
+  },
+  {
+    "video_id": "4PcpGxihPac.2.4.mp4",
+    "caption_type": "scene",
+    "pre_caption": "In a dimly lit indoor setting, a close-up focuses on a man with a beard whose face is covered in red blood. The background is dark and out of focus, while a cool, blue-green light from above illuminates the subject, creating a grainy texture. White subtitles are present as an overlay at the bottom of the screen.",
+    "pre_caption_score": 4,
+    "critique": "Please remove the mention of \"White subtitles are present as an overlay at the bottom of the screen\" from the caption.",
+    "final_caption": "In a dimly lit indoor setting, a close-up focuses on a man with a beard whose face is covered in red blood. The background is dark and out of focus, while a cool, blue-green light from above illuminates the subject, creating a grainy texture.",
+    "insertion_error_critique": "Please remove the mention of \"White subtitles are present as an overlay at the bottom of the screen\" from the caption. Additionally, include a reference to a large window with sunlight streaming through, even though this element is not present in the original scene.",
+    "replacement_error_critique": "Please remove the mention of \"a cool, blue-green light from above illuminates the subject\" from the caption.",
+    "worst_caption": "In a brightly lit outdoor park during midday, a wide-angle view shows a group of children playing near a large, circular fountain made of white marble. Lush green trees line the background, and sunlight casts sharp shadows across the neatly trimmed grass. A digital clock overlay appears in the upper right corner, displaying the time in bold yellow numbers. The scene is clear, with vibrant colors and no visible grain or distortion.",
+    "workflow_type": "improved_precaption",
+    "annotator_negative_workflow_type": null
+  },
+  {
+    "video_id": "4PcpGxihPac.2.4.mp4",
+    "caption_type": "motion",
+    "pre_caption": "The subject in the video remains completely still.",
+    "pre_caption_score": 5,
+    "critique": null,
+    "final_caption": "The subject in the video remains completely still.",
+    "insertion_error_critique": "The subject in the video slowly raises their right arm.",
+    "replacement_error_critique": "",
+    "worst_caption": "The subject walks briskly across the room, pauses to tie their shoe, and then waves at someone off camera before exiting through a doorway.",
+    "workflow_type": "perfect_precaption",
+    "annotator_negative_workflow_type": null
+  },
+  {
+    "video_id": "4PcpGxihPac.2.4.mp4",
+    "caption_type": "spatial",
+    "pre_caption": "In a close-up shot, a man is centrally framed, occupying the foreground. The camera is positioned at his eye level, capturing his head and shoulders against a dark, out-of-focus background. The framing remains static throughout the shot.",
+    "pre_caption_score": 5,
+    "critique": null,
+    "final_caption": "In a close-up shot, a man is centrally framed, occupying the foreground. The camera is positioned at his eye level, capturing his head and shoulders against a dark, out-of-focus background. The framing remains static throughout the shot.",
+    "insertion_error_critique": "The caption should mention that the man is positioned slightly to the left of the frame rather than being perfectly centered.",
+    "replacement_error_critique": "",
+    "worst_caption": "In a wide shot, a group of children is positioned along the bottom right of the frame in the middle ground, playing with a large red ball. The camera is set slightly above their height, looking down at the scene. Behind them, a row of trees fills the background, stretching from the left to the right edge of the frame. The shot remains steady, and no significant movement occurs among the subjects or the camera throughout the video.",
+    "workflow_type": "perfect_precaption",
+    "annotator_negative_workflow_type": null
+  },
+  {
+    "video_id": "4PcpGxihPac.2.4.mp4",
+    "caption_type": "camera",
+    "pre_caption": "This is a static, low-angle, eye-level shot. The camera uses an extremely shallow depth of field, focusing on the man's face in the foreground.",
+    "pre_caption_score": 4,
+    "critique": "The shot is described as a low-angle, but it appears to be more of a level angle.",
+    "final_caption": "This is a static, level-angle, eye-level shot. The camera uses an extremely shallow depth of field, focusing on the man's face in the foreground.",
+    "insertion_error_critique": "The shot is described as a low-angle, but it appears to be more of a level angle. Additionally, there is noticeable barrel distortion along the edges of the frame, which should be mentioned.",
+    "replacement_error_critique": "The shot is described as having an extremely shallow depth of field, but it actually uses deep focus, keeping both the foreground and background sharp.",
+    "worst_caption": "The camera slowly cranes downward from an overhead angle, starting above the scene and ending at ground level. A wide-angle lens introduces noticeable barrel distortion, especially at the frame edges. The video is played in fast-motion, causing all movement to appear accelerated. Focus remains deep throughout, keeping both the distant background and foreground elements sharp.",
+    "workflow_type": "improved_precaption",
+    "annotator_negative_workflow_type": "perfect_precaption"
+  }
+]

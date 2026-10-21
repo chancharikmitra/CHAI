@@ -122,6 +122,67 @@ Formatted for the **critique generation** task. Each sample provides a video, a 
 ### `eval_caption_yes_or_no_test.json`
 Formatted for the **reward modeling** (binary alignment scoring) task. Given a video, a task instruction, and a candidate caption, the model must judge whether the caption aligns with the video by responding **"Yes"** or **"No"**. For pre-captions scoring below 5, two samples are generated: the final caption as a positive example ("Yes") and the pre-caption as a negative example ("No"), providing balanced supervision for learning caption quality.
 
+
+### Input data format (`--data_file`)
+
+All entry points (`run_unified_evaluations.sh`, `unified_generation.py`,
+`parallel_unified_generation.py`) read a **flat JSON list with one record per
+(video, caption type) pair** — `test_split.json` is 1000 videos x 5 caption
+types = 5000 records. Captions must *not* be nested under a per-video object.
+
+A runnable 5-record example (one video, all five caption types, mixing perfect
+and corrected pre-captions) ships at `eval_data/example_data_file.json`:
+
+```bash
+python -m eval_code.unified_generation \
+    --data_file eval_data/example_data_file.json \
+    --formats caption_generation \
+    --model qwen3-vl-8b \
+    --video_dir eval_data/captioning_videos
+```
+
+A minimal record looks like:
+
+```json
+[
+  {
+    "video_id": "4PcpGxihPac.2.4.mp4",
+    "caption_type": "camera",
+    "pre_caption": "This is a static, low-angle, eye-level shot. [...]",
+    "pre_caption_score": 4,
+    "critique": "The shot is described as a low-angle, but it appears to be more of a level angle.",
+    "final_caption": "This is a static, level-angle, eye-level shot. [...]"
+  }
+]
+```
+
+| Field | Required | Used for |
+|---|---|---|
+| `video_id` | yes | joined onto `--video_dir` to locate the video, so it must match the filename on disk |
+| `caption_type` | yes | selects the task instruction; one of `subject`, `scene`, `motion`, `spatial`, `camera` |
+| `final_caption` | yes | target for `caption_generation` / `caption_correction`, the "Yes" caption for reward modeling, and the reference for BLEU-4 / ROUGE-L |
+| `pre_caption` | for critique + reward tasks | the caption to critique, and the "No" caption for reward modeling |
+| `pre_caption_score` | for critique + reward tasks | integer 1-5; **gates pair construction** (see below) |
+| `critique` | for critique tasks | target for `critique_generation`; the given critique in `*_with_given_critique` formats |
+| `insertion_error_critique`, `replacement_error_critique` | for `critique_yes_or_no` only | sources of the deliberately-wrong critique negatives |
+| `workflow_type`, `annotator_negative_workflow_type` | no | passed through to the results file for slicing |
+
+Three behaviors worth knowing before you swap in your own data:
+
+- **`caption_type` fails silently if absent.** `unified_generation.py:140` falls
+  back to `sample.get("caption_type", "camera")`, so a file missing this field
+  runs to completion with every sample scored against the *camera* instruction.
+  The accepted values are exactly the keys of `eval_code/task_instructions.json`.
+- **`pre_caption_score` gates the pair-forming formats.** Records scoring 5 are
+  skipped by `caption_yes_or_no` and `critique_yes_or_no` (a perfect pre-caption
+  yields no negative), and `formats.py` raises `TypeError` on a missing or
+  `null` score. Set it explicitly even when the value is uninteresting.
+- **Reward modeling and critique generation need a *distinct* `pre_caption`.**
+  Caption-only data (just `video_id` + `final_caption` + `caption_type`) can
+  drive `caption_generation` and its BLEU/ROUGE eval, but not the other two
+  tasks — set `SCORING_FORMATS=()` and drop `critique_generation` from
+  `GENERATION_FORMATS` in that case.
+
 ---
 
 ## Running Evaluations
@@ -206,6 +267,7 @@ CHAI/
 │   ├── eval_caption_generation_test.json
 │   ├── eval_critique_generation_test.json
 │   ├── eval_caption_yes_or_no_test.json
+│   ├── example_data_file.json       # Minimal --data_file example (5 records)
 │   └── captioning_videos/
 ├── pyproject.toml
 ├── run_unified_evaluations.sh       # Main evaluation entry point
